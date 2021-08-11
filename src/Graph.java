@@ -78,6 +78,18 @@ public class Graph {
     }
 
     /**
+     * Prints the divider for the adjacency matrix
+     */
+    private void printAdjMatrixDivider() {
+        System.out.printf("+---+");
+        for (int x = 0; x < this.vertexCount; x++) {
+            System.out.printf("---+");
+        }
+
+        System.out.printf("%n");
+    }
+
+    /**
      * Prints the adjacency matrix to the stdout
      */
     public void printAdjMatrix() {
@@ -110,14 +122,5 @@ public class Graph {
 
         // print the divider
         this.printAdjMatrixDivider();
-    }
-
-    private void printAdjMatrixDivider() {
-        System.out.printf("+---+");
-        for (int x = 0; x < this.vertexCount; x++) {
-            System.out.printf("---+");
-        }
-
-        System.out.printf("%n");
     }
 }
