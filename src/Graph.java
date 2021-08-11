@@ -4,8 +4,8 @@
 public class Graph {
     private int vertexCount;
     private int maxVertices;
-    private Vertex vertexList[];
-    private int adjMatrix[][];
+    private Vertex[] vertexList;
+    private int[][] adjMatrix;
 
     /**
      * Constructs an empty graph with max possible vertices
@@ -42,6 +42,22 @@ public class Graph {
     }
 
     /**
+     * Get the index of vertex with label l in the array vertexList
+     * @param l the label of vertex
+     * @return index the vertex l
+     */
+    private int getVertexIndex(char l) {
+        int pos = 0;
+        for (pos = 0; pos < this.vertexCount; pos++) {
+            if (this.vertexList[pos].label == l) {
+                break;
+            }
+        }
+
+        return pos;
+    }
+
+    /**
      * Adds an edge from vertex a to vertex b with the weight w
      *
      * @param a             starting vertex
@@ -55,20 +71,10 @@ public class Graph {
         b = Character.toUpperCase(b);
 
         // find the position of vertex a
-        int aPos = 0;
-        for (aPos = 0; aPos < this.vertexCount; aPos++) {
-            if (this.vertexList[aPos].label == a) {
-                break;
-            }
-        }
+        int aPos = this.getVertexIndex(a);
 
         // find the position of vertex b
-        int bPos = 0;
-        for (bPos = 0; bPos < this.vertexCount; bPos++) {
-            if (this.vertexList[bPos].label == b) {
-                break;
-            }
-        }
+        int bPos = this.getVertexIndex(b);
 
         this.adjMatrix[aPos][bPos] = w;
 
