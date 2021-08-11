@@ -1,3 +1,5 @@
+import java.util.PriorityQueue;
+
 /**
  * Represents a graph using adjacency matrix
  */
@@ -43,6 +45,7 @@ public class Graph {
 
     /**
      * Get the index of vertex with label l in the array vertexList
+     *
      * @param l the label of vertex
      * @return index the vertex l
      */
@@ -114,13 +117,13 @@ public class Graph {
         // print the divider
         this.printAdjMatrixDivider();
 
-        for (int y = 0; y < this.vertexCount; y++) {
+        for (int x = 0; x < this.vertexCount; x++) {
             // print the rows
-            System.out.printf("| %c | ", this.vertexList[y].label);
+            System.out.printf("| %c | ", this.vertexList[x].label);
 
-            for (int x = 0; x < this.vertexCount; x++) {
+            for (int y = 0; y < this.vertexCount; y++) {
                 // print the weight
-                System.out.printf("%d | ", this.adjMatrix[y][x]);
+                System.out.printf("%d | ", this.adjMatrix[x][y]);
             }
 
             System.out.printf("%n");
@@ -128,5 +131,80 @@ public class Graph {
 
         // print the divider
         this.printAdjMatrixDivider();
+    }
+
+    /**
+     * Prints the shortest distance from startingVertex from every other vertex of
+     * the graph
+     *
+     * @param startingVertex vertex from where the shortest distance needs to be
+     *                       printed
+     */
+    public void dijkstra(char startingVertex) {
+        boolean[] toBeChecked = new boolean[this.vertexCount];
+        int[] currentDistance = new int[this.vertexCount];
+        char[] predecessor = new char[this.vertexCount];
+
+        // get position of startingVertex
+        int pos = this.getVertexIndex(startingVertex);
+
+        // initialize toBeChecked
+        for (int i = 0; i < toBeChecked.length; i++) {
+            toBeChecked[i] = true;
+        }
+
+        // initialize the currentDistance as -1 for all except the startingVertex
+        for (int i = 0; i < currentDistance.length; i++) {
+            if (i == pos) {
+                currentDistance[i] = 0;
+            }
+
+            else {
+                currentDistance[i] = -1;
+            }
+        }
+
+        // initialize predecessor
+        for (int i = 0; i < predecessor.length; i++) {
+            predecessor[i] = '-';
+        }
+
+        PriorityQueue<PriorityVertex> pq = new PriorityQueue<>(new SortVertex());
+        pq.add(new PriorityVertex(this.vertexList[pos], currentDistance[pos]));
+
+        while (!pq.isEmpty()) {
+            char currentVertex = pq.poll().v.label;
+            pos = this.getVertexIndex(currentVertex);
+            toBeChecked[pos] = false;
+
+            // check all adjacent vertices
+            for (int i = 0; i < this.vertexCount; i++) {
+
+                // i becomes the index of adjacent vertex
+                if (this.adjMatrix[pos][i] > 0) {
+                    if (toBeChecked[i] == false) {
+                        continue;
+                    }
+
+                    else {
+                        int newDistance = currentDistance[pos] + this.adjMatrix[pos][i];
+
+                        if (currentDistance[i] == -1 || newDistance < currentDistance[i]) {
+                            currentDistance[i] = newDistance;
+                            pq.add(new PriorityVertex(this.vertexList[i], currentDistance[i]));
+                        }
+
+                        predecessor[i] = currentVertex;
+                    }
+                }
+            }
+        }
+
+        System.out.printf("| Vertex | ToBeChecked | Distance | Predecessor |%n");
+        System.out.printf("+--------+-------------+----------+-------------+%n");
+        for (int i = 0; i < currentDistance.length; i++) {
+            System.out.printf("| %6c | %11s | %8d | %11c |%n", this.vertexList[i].label, toBeChecked[i],
+                    currentDistance[i], predecessor[i]);
+        }
     }
 }
