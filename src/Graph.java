@@ -7,6 +7,11 @@ public class Graph {
     private Vertex vertexList[];
     private int adjMatrix[][];
 
+    /**
+     * Constructs an empty graph with max possible vertices
+     *
+     * @param max maximum number of vertices
+     */
     public Graph(int max) {
         this.vertexCount = 0;
         this.maxVertices = max;
@@ -51,7 +56,7 @@ public class Graph {
 
         // find the position of vertex a
         int aPos = 0;
-        for(aPos=0; aPos<this.vertexCount; aPos++) {
+        for (aPos = 0; aPos < this.vertexCount; aPos++) {
             if (this.vertexList[aPos].label == a) {
                 break;
             }
@@ -59,7 +64,7 @@ public class Graph {
 
         // find the position of vertex b
         int bPos = 0;
-        for(bPos=0; bPos<this.vertexCount; bPos++) {
+        for (bPos = 0; bPos < this.vertexCount; bPos++) {
             if (this.vertexList[bPos].label == b) {
                 break;
             }
@@ -67,7 +72,7 @@ public class Graph {
 
         this.adjMatrix[aPos][bPos] = w;
 
-        if(bidirectional == true) {
+        if (bidirectional == true) {
             this.adjMatrix[bPos][aPos] = w;
         }
     }
@@ -76,24 +81,24 @@ public class Graph {
      * Prints the adjacency matrix to the stdout
      */
     public void printAdjMatrix() {
-        System.out.printf("  |");
+        // print the divider
+        this.printAdjMatrixDivider();
+
+        System.out.printf("|   |");
 
         // print the columns
         for (int x = 0; x < this.vertexCount; x++) {
             System.out.printf(" %c |", this.vertexList[x].label);
         }
 
-        // print the divider
-        System.out.printf("%n--+");
-        for (int x = 0; x < this.vertexCount; x++) {
-            System.out.printf("---+");
-        }
-
         System.out.printf("%n");
+
+        // print the divider
+        this.printAdjMatrixDivider();
 
         for (int y = 0; y < this.vertexCount; y++) {
             // print the rows
-            System.out.printf("%c | ", this.vertexList[y].label);
+            System.out.printf("| %c | ", this.vertexList[y].label);
 
             for (int x = 0; x < this.vertexCount; x++) {
                 // print the weight
@@ -102,5 +107,17 @@ public class Graph {
 
             System.out.printf("%n");
         }
+
+        // print the divider
+        this.printAdjMatrixDivider();
+    }
+
+    private void printAdjMatrixDivider() {
+        System.out.printf("+---+");
+        for (int x = 0; x < this.vertexCount; x++) {
+            System.out.printf("---+");
+        }
+
+        System.out.printf("%n");
     }
 }
