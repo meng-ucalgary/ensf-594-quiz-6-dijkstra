@@ -1,18 +1,9 @@
-## Getting Started
+# ENSF-594 Quiz 6
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Solution to one of the problems presented in Quiz 6. The problem was related to finding shortest path between nodes of a graph using Dijkstra's algorithm.
 
-## Folder Structure
+## How to build and run
 
-The workspace contains two folders by default, where:
+1. Clone the repository to your local machine.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+2. Run the script [`launch.sh`](launch.sh) or [`launch.cmd`](launch.cmd) to launch the program.
